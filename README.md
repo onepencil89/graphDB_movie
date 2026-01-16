@@ -17,23 +17,23 @@ pip install pandas
 # 실습 설명
 ## 실습1
 - 파일 : 1.neo4j_movie_graphdb구축_csv.ipynb
+
 ### 내용
 
+- langchain을 활용한 neo4j 객체 생성 및 연결.
+- 영화 추천 모델 생성을 위한 제약조건/ 인덱스 생성.(스키마 설정)
+- CSV데이터 로드 후 노드 및 관계 생성.
 
-1. langchain을 활용한 neo4j 객체 생성 및 연결.
+1 노드 : 
+- id 
+- type(Movie, Person, Genre) 
+- properties
 
-2. 영화 추천 모델 생성을 위한 제약조건/ 인덱스 생성.(스키마 설정)
+2 관계 :
+- [Person -[ACTED_IN]-> MOVIE,
+- Person -[DIRECTED_IN]-> MOVIE,
+- Movie -[IN_GENRE]-> Genre]
 
-3. CSV데이터 로드 후 노드 및 관계 생성.
-
-노드 : 
-[id, type(Movie, Person, Genre), properties]
-관계 
-[Person -[ACTED_IN]-> MOVIE,
-Person -[DIRECTED_IN]-> MOVIE,
-Movie -[IN_GENRE]-> Genre]
-
-4. GraphDB 저장
 
 ## 실습2
 - 파일 : 2.neo4j_movie_basic_search.ipynb
