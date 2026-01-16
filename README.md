@@ -34,13 +34,12 @@ Person -[DIRECTED_IN]-> MOVIE,
 Movie -[IN_GENRE]-> Genre]
 
 4. GraphDB 저장
->>>>>>> Stashed changes
 
 ## 실습2
 - 파일 : 2.neo4j_movie_basic_search.ipynb
 ### 내용
 
-핵심 분석 및 기능
+#### 핵심 분석 및 기능
 본 프로젝트는 다음과 같은 단계별 분석 과정을 거쳐 고도화된 데이터를 도출
 
 ① 기초 통계 분석
@@ -72,7 +71,7 @@ Library: LangChain (Neo4jGraph), Pandas
 - 파일 : 3.neo4j_movie_full-text_search.ipynb
 ### 내용
 
- 핵심 분석 및 기능
+#### 핵심 분석 및 기능
 
 ① 기초 통계 및 전문 검색(Full-Text Search) 분석
 - 평점 및 다작 분석: 평점이 높은 상위 영화 및 배우별 출연 횟수 순위 분석을 통한 핵심 데이터 식별.
@@ -98,82 +97,82 @@ Library: LangChain (Neo4jGraph), Pandas
 - 파일 : 4.neo4j_movie_vector_search.ipynb
 ### 내용
 
-목적: 텍스트 의미 유사성을 바탕으로 한 비정형 데이터 검색 환경 구축
+#### 목적: 텍스트 의미 유사성을 바탕으로 한 비정형 데이터 검색 환경 구축
 
-임베딩 데이터 생성: OpenAI text-embedding-3-small 모델을 사용하여 영화 줄거리(Overview)를 고차원 벡터로 변환.
+- 임베딩 데이터 생성: OpenAI text-embedding-3-small 모델을 사용하여 영화 줄거리(Overview)를 고차원 벡터로 변환.
 
-벡터 인덱스 구축: Neo4j 내 vector 타입 속성에 임베딩 데이터를 저장하고 벡터 인덱스(movie_content_embeddings) 생성.
+- 벡터 인덱스 구축: Neo4j 내 vector 타입 속성에 임베딩 데이터를 저장하고 벡터 인덱스(movie_content_embeddings) 생성.
 
-시맨틱 검색 구현: 키워드가 일치하지 않아도 "전쟁 중의 우정"과 같은 의미적 문맥을 파악하여 유사 영화 도출.
+- 시맨틱 검색 구현: 키워드가 일치하지 않아도 "전쟁 중의 우정"과 같은 의미적 문맥을 파악하여 유사 영화 도출.
 
-유사도 기반 결과 추출: 코사인 유사도 등을 바탕으로 질문과 가장 가까운 상위 K개의 영화 노드 반환.
+- 유사도 기반 결과 추출: 코사인 유사도 등을 바탕으로 질문과 가장 가까운 상위 K개의 영화 노드 반환.
 
 ## 실습5
 - 파일 : 5.neo4j_movie_text2cypher.ipynb
 
 ### 내용
 
-목적: 자연어 질문을 그래프 쿼리(Cypher)로 자동 변환하여 데이터 질의
+#### 목적: 자연어 질문을 그래프 쿼리(Cypher)로 자동 변환하여 데이터 질의
 
-그래프 스키마 정보 활용: DB 스키마 정보를 LLM에 전달하여 정확한 노드와 관계를 참조하도록 설정.
+- 그래프 스키마 정보 활용: DB 스키마 정보를 LLM에 전달하여 정확한 노드와 관계를 참조하도록 설정.
 
-Cypher Query Generation: 사용자의 일상어 질문을 Neo4j 전용 쿼리문으로 변환하는 GraphCypherQAChain 구현.
+- Cypher Query Generation: 사용자의 일상어 질문을 Neo4j 전용 쿼리문으로 변환하는 GraphCypherQAChain 구현.
 
-복합 질의 처리: "특정 배우와 특정 감독이 함께 작업한 영화" 등 다단계 관계가 필요한 질문에 대한 자동 쿼리 생성 및 실행.
+- 복합 질의 처리: "특정 배우와 특정 감독이 함께 작업한 영화" 등 다단계 관계가 필요한 질문에 대한 자동 쿼리 생성 및 실행.
 
-자연어 답변 생성: 쿼리 실행 결과로 얻은 데이터를 LLM이 다시 자연어 문장으로 정제하여 사용자에게 전달.
+- 자연어 답변 생성: 쿼리 실행 결과로 얻은 데이터를 LLM이 다시 자연어 문장으로 정제하여 사용자에게 전달.
 
 ## 실습6
 - 파일 : 6.neo4j_movie_graphVector_RAG.ipynb
 
 ### 내용
 
-목적: 벡터 검색의 유연성과 그래프 탐색의 정확성을 결합한 고도화된 RAG 구현
+#### 목적: 벡터 검색의 유연성과 그래프 탐색의 정확성을 결합한 고도화된 RAG 구현
 
-하이브리드 검색 아키텍처: 벡터 검색을 통해 검색 진입점(Entry Point)을 찾고, 그래프 탐색으로 연관 데이터를 확장하는 구조.
+- 하이브리드 검색 아키텍처: 벡터 검색을 통해 검색 진입점(Entry Point)을 찾고, 그래프 탐색으로 연관 데이터를 확장하는 구조.
 
-데이터 컨텍스트 확장: 검색된 영화와 연결된 배우들의 필모그래피, 상세 메타데이터 등을 그래프 탐색을 통해 풍부하게 수집.
+- 데이터 컨텍스트 확장: 검색된 영화와 연결된 배우들의 필모그래피, 상세 메타데이터 등을 그래프 탐색을 통해 풍부하게 수집.
 
-Orchestrator 구현: similarity_search ➔ graph_query ➔ format_context로 이어지는 데이터 파이프라인 구축.
+- Orchestrator 구현: similarity_search ➔ graph_query ➔ format_context로 이어지는 데이터 파이프라인 구축.
 
-고도화된 응답 생성: 단순 검색 결과 나열이 아닌, 관계 기반으로 확장된 정보를 바탕으로 LLM이 심층적인 답변 제공.
+- 고도화된 응답 생성: 단순 검색 결과 나열이 아닌, 관계 기반으로 확장된 정보를 바탕으로 LLM이 심층적인 답변 제공.
 
 ## 실습7
 - 파일 : 7.neo4j_movie_graphRAG_hybrid.ipynb
 
-1. 프로젝트 개요
-벡터 검색의 유연한 탐색 능력과 그래프 DB의 엄밀한 관계 추론 능력을 결합한 완성형 GraphRAG 파이프라인 구축. 단순한 데이터 검색을 넘어 데이터 간의 연결성을 활용하여 인간의 기억 모델과 유사한 방식으로 정보를 확장하고 답변을 생성하는 것이 목적.
+#### 1.프로젝트 개요
+- 벡터 검색의 유연한 탐색 능력과 그래프 DB의 엄밀한 관계 추론 능력을 결합한 완성형 GraphRAG 파이프라인 구축. 단순한 데이터 검색을 넘어 데이터 간의 연결성을 활용하여 인간의 기억 모델과 유사한 방식으로 정보를 확장하고 답변을 생성하는 것이 목적.
 
-2. 핵심 프로세스 (Core Architecture)
+#### 2.핵심 프로세스 (Core Architecture)
 ① Entry Point 탐색 (Vector Search)
-비정형 데이터 검색: 사용자의 자연어 질문과 가장 유사한 영화 노드를 벡터 인덱스에서 빠르게 식별.
+- 비정형 데이터 검색: 사용자의 자연어 질문과 가장 유사한 영화 노드를 벡터 인덱스에서 빠르게 식별.
 
-임베딩 모델: OpenAI text-embedding-3-small을 사용하여 고차원 의미 분석 수행.
+- 임베딩 모델: OpenAI text-embedding-3-small을 사용하여 고차원 의미 분석 수행.
 
 ② 지식 확장 (Knowledge Expansion)
-그래프 탐색: 식별된 노드를 기점으로 :ACTED_IN 관계 등을 추적하여 연관된 배우 및 메타데이터 수집.
+- 그래프 탐색: 식별된 노드를 기점으로 :ACTED_IN 관계 등을 추적하여 연관된 배우 및 메타데이터 수집.
 
-필모그래피 확장: 검색된 배우의 ID를 기반으로 해당 배우가 출연한 다른 작품들을 추가로 조회하여 문맥에 포함.
+- 필모그래피 확장: 검색된 배우의 ID를 기반으로 해당 배우가 출연한 다른 작품들을 추가로 조회하여 문맥에 포함.
 
 ③ 문맥 풍부화 및 답변 생성 (Augmentation & Generation)
-Orchestrator 엔진: Vector Search ➔ Graph Search ➔ Data Formatting 과정을 하나의 함수로 총괄.
+- Orchestrator 엔진: Vector Search ➔ Graph Search ➔ Data Formatting 과정을 하나의 함수로 총괄.
 
-LCEL 체인 구축: RunnablePassthrough와 RunnableLambda를 활용하여 데이터 파이프라인을 선언적으로 구성.
+- LCEL 체인 구축: RunnablePassthrough와 RunnableLambda를 활용하여 데이터 파이프라인을 선언적으로 구성.
 
-전문가 페르소나: 주어진 정보에만 기반하여 객관적이고 사실적인 답변을 하도록 프롬프트 가이드라인 설정.
+- 전문가 페르소나: 주어진 정보에만 기반하여 객관적이고 사실적인 답변을 하도록 프롬프트 가이드라인 설정.
 
-3. 주요 기능 요약 (Features)
-구조적 하이브리드: 검색의 시작은 벡터(비정형), 정보의 확장은 그래프(정형) 데이터 활용.
+#### 3.주요 기능 요약 (Features)
+- 구조적 하이브리드: 검색의 시작은 벡터(비정형), 정보의 확장은 그래프(정형) 데이터 활용.
 
-중복 제거 로직: 수집된 배우 ID들의 중복을 제거하여 쿼리 효율성을 높이고 데이터 일관성 유지.
+- 중복 제거 로직: 수집된 배우 ID들의 중복을 제거하여 쿼리 효율성을 높이고 데이터 일관성 유지.
 
-동적 컨텍스트: 질문에 따라 관련 영화, 평점, 출연진, 배우의 타 출연작까지 포함된 풍부한 배경지식(Context) 생성.
+- 동적 컨텍스트: 질문에 따라 관련 영화, 평점, 출연진, 배우의 타 출연작까지 포함된 풍부한 배경지식(Context) 생성.
 
-4. 기술 스택
-Graph Database: Neo4j (Enhanced Schema 활용)
-LLM: OpenAI GPT-4o-mini
-Framework: LangChain (Neo4jVector, Neo4jGraph, LCEL)
-Language: Python (dotenv 활용 환경 제어)
+#### 4.기술 스택
+- Graph Database: Neo4j (Enhanced Schema 활용)
+- LLM: OpenAI GPT-4o-mini
+- Framework: LangChain (Neo4jVector, Neo4jGraph, LCEL)
+- Language: Python (dotenv 활용 환경 제어)
 
 ### Neo4j 기반 하이브리드 RAG
 - Vector RAG + Graph RAG를 활용한 서비스 구현하기
